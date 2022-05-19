@@ -100,11 +100,13 @@ while bandera:
     k = cv2.waitKey(5) & 0xFF
     if k == 27:
         bandera = False
+    # Revisar si se apreta la tecla "c"
     elif k == 99:
         idNum = recortarImagen(imagenCopia,countoursResultado,idCarpeta,idNum)
+    # Revisar si se apreta la tecla "e"
     elif k == 101:
         clienteHTTP = ClientHTTP()
-        # TODO Se cargan las imágenes de la carpeta a un JSON
+        # TODO: Se cargan las imágenes de la carpeta a un JSON
         jsonPrueba = {'imagen': 'pruebaPOSTimagen'}
         print(clienteHTTP.postData(urlServer,jsonPrueba).text)
 
