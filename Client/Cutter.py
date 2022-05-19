@@ -15,7 +15,7 @@ class Cut:
               new_img=image[y:y+h,x:x+w]
               #writes the new file in the Crops folder
 
-              # Convert to Gray Scale
+              # Convert Gray Scale
               imagenGris = cv2.cvtColor(new_img, cv2.COLOR_BGR2GRAY)
 
               urlFolder = str(idCarpeta)+'\\'+str(idNum)+'.png'
