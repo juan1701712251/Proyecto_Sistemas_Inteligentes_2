@@ -1,15 +1,16 @@
-from datetime import datetime
-
 import cv2
 import numpy as np
-from Cutter import Cut
 import os
 
+from datetime import datetime
+from clientHTTP import ClientHTTP
+from Cutter import Cut
 
 nameWindow="Calculadora"
 idNum = 0
 fecha = datetime.now()
 idCarpeta = 'Crops\\'+'CROP_FOLDER_'+fecha.strftime('DAY_%d_%m_%Y_HOUR_%H_%M_%S')
+urlServer = 'http://flaskPrueba.juan_sebastian3.repl.co/predictImages'
 # Crear la carpeta
 os.mkdir(idCarpeta)
 
@@ -101,6 +102,11 @@ while bandera:
         bandera = False
     elif k == 99:
         idNum = recortarImagen(imagenCopia,countoursResultado,idCarpeta,idNum)
+    elif k == 101:
+        clienteHTTP = ClientHTTP()
+        # TODO Se cargan las imágenes de la carpeta a un JSON
+        jsonPrueba = {'imagen': 'pruebaPOSTimagen'}
+        print(clienteHTTP.postData(urlServer,jsonPrueba).text)
 
 video.release()
 cv2.destroyAllWindows()
