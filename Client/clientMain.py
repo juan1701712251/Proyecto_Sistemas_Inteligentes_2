@@ -2,15 +2,17 @@ import cv2
 import numpy as np
 import os
 
+
 from datetime import datetime
 from clientHTTP import ClientHTTP
 from Cutter import Cut
+from Encoder import Encoder
 
 nameWindow="Calculadora"
 idNum = 0
 fecha = datetime.now()
 idCarpeta = 'Crops\\'+'CROP_FOLDER_'+fecha.strftime('DAY_%d_%m_%Y_HOUR_%H_%M_%S')
-urlServer = 'http://flaskPrueba.juan_sebastian3.repl.co/predictImages'
+urlServer = 'http://flaskPrueba.juan_sebastian3.repl.co/predict'
 # Crear la carpeta
 os.mkdir(idCarpeta)
 
@@ -81,7 +83,7 @@ def detectarForma(imagen):
 
 
 # Apertura de la cámara
-video = cv2.VideoCapture(0)
+video = cv2.VideoCapture(1)
 bandera = True
 constructorVentana()
 
@@ -106,9 +108,11 @@ while bandera:
     # Revisar si se apreta la tecla "e"
     elif k == 101:
         clienteHTTP = ClientHTTP()
-        # TODO: Se cargan las imágenes de la carpeta a un JSON
-        jsonPrueba = {'imagen': 'pruebaPOSTimagen'}
-        print(clienteHTTP.postData(urlServer,jsonPrueba).text)
+        encoder = Encoder()
+        imagenesCodificadas = encoder.EncoderBase64FromFolder(idCarpeta)
+        jsonPrueba= {"id_client":"JUAN","images":imagenesCodificadas,"models":["KNN","BAYES"]}
+        print(jsonPrueba)
+        print(clienteHTTP.postJson(urlServer,jsonPrueba).text)
 
 video.release()
 cv2.destroyAllWindows()
