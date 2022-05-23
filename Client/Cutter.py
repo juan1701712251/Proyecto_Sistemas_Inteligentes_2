@@ -13,8 +13,8 @@ class Cut:
               idNum+=1
               #pulls crop out of the image based on dimensions
               new_img=image[y:y+h,x:x+w]
-              #writes the new file in the Crops folder
-
+              #Hacer resize despues de cortarle (para despues)
+              #new_img = cv2.resize(new_img, (128, 128))
               # Convert Gray Scale
               imagenGris = cv2.cvtColor(new_img, cv2.COLOR_BGR2GRAY)
 
@@ -22,6 +22,6 @@ class Cut:
               print(urlFolder)
               if not cv2.imwrite(urlFolder, imagenGris):
                   print("Could not write image")
-              cv2.imshow("CROP"+str(idNum),imagenGris)
+              cv2.imshow("CROP"+str(idNum), imagenGris)
             #returns a number incremented up for the next file name
         return idNum

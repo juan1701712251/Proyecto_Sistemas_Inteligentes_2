@@ -3,7 +3,7 @@ import base64
 import os
 
 class Encoder:
-    def EncoderBase64(self,image):
+    def EncoderBase64(self, image):
         retval, buffer = cv2.imencode('.jpg', image)
         jpg_as_text = base64.b64encode(buffer)
 
@@ -24,9 +24,9 @@ class Encoder:
 
             # Encode for each image
             retval, buffer = cv2.imencode('.jpg', image)
-            # Add image in list with id
-            imageListBase64.append({"id":file_name,"content":str(base64.b64encode(buffer))})
-
+            # Add image in list with
+            imgBase64 = base64.b64encode(buffer)
+            imageListBase64.append({"id":file_name, "content": imgBase64.decode('utf-8')})
 
         return imageListBase64
 
